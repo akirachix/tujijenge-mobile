@@ -91,7 +91,10 @@ fun SignupScreen(navController: NavHostController) {
                         .fillMaxWidth()
                         .background(TujijengeLightGreen, RoundedCornerShape(8.dp)),
                     placeholder = {
-                        Text("Enter ${label.removeSuffix(":").lowercase()}")
+                        Text("Enter ${label.removeSuffix(":").lowercase()}",
+                            fontFamily = TujijengeFont
+                        )
+
                     },
                     shape = RoundedCornerShape(8.dp),
                     colors = OutlinedTextFieldDefaults.colors(
