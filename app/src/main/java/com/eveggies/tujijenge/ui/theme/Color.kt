@@ -1,11 +1,21 @@
 package com.eveggies.tujijenge.ui.theme
-
 import androidx.compose.ui.graphics.Color
+// Brand Colors
+val TujijengeGreen = Color(0xFF084236)       // Primary Dark Green
+val TujijengeLightGreen = Color(0xFFC0C882)  // Background/Input Light Green
+// Neutrals (you can adjust or add more if needed)
+val TujijengeWhite = Color(0xFFFFFFFF)
+val TujijengeBlack = Color(0xFF000000)
+val TujijengeGrey = Color(0xFF888888)
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+
+
+
+
+
+
+
+
+
+
