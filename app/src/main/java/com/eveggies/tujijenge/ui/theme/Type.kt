@@ -13,7 +13,7 @@ val TujijengeFont = FontFamily(
     Font(R.font.nunitomedium, FontWeight.Medium),
     Font(R.font.nunitobold, FontWeight.Bold)
 )
-// Set of Material typography styles to start with
+
 
 val TujijengeTypography = Typography(
     bodyLarge = TextStyle(

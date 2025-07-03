@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.eveggies.tujijenge.R
+import com.eveggies.tujijenge.ui.theme.TujijengeFont
 import com.eveggies.tujijenge.ui.theme.TujijengeGreen
 import com.eveggies.tujijenge.ui.theme.TujijengeLightGreen
 import com.eveggies.tujijenge.ui.theme.TujijengeWhite
@@ -61,7 +62,8 @@ fun SignupScreen(navController: NavHostController) {
                 style = MaterialTheme.typography.titleLarge,
                 color = TujijengeGreen,
                 fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                fontFamily = TujijengeFont
             )
         }
         Spacer(modifier = Modifier.height(32.dp))
@@ -78,7 +80,8 @@ fun SignupScreen(navController: NavHostController) {
                 Text(
                     text = label,
                     style = MaterialTheme.typography.bodyLarge,
-                    color = TujijengeGreen
+                    color = TujijengeGreen,
+                    fontFamily = TujijengeFont
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
@@ -123,7 +126,8 @@ fun SignupScreen(navController: NavHostController) {
         ) {
             Text(
                 text = "Continue",
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
+                fontFamily = TujijengeFont
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -135,12 +139,14 @@ fun SignupScreen(navController: NavHostController) {
             Text(
                 text = "Already have an account? ",
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.onBackground,
+                fontFamily = TujijengeFont
             )
             Text(
                 text = "Login",
                 style = MaterialTheme.typography.bodySmall,
                 color = TujijengeGreen,
+                fontFamily = TujijengeFont,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.clickable {
                     navController.navigate("login")
