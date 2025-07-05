@@ -28,12 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
-//
-//Text inside button: height: 60, width 220, button text, bold and 25
-//Heading one 32
-//description 16.sp (edited)
-//logo 350 width and 200 heign
-//padding top 73
+
 @Composable
 fun ResetPinScreen(onBackClick: () -> Unit) {
     var newPin by remember { mutableStateOf("") }
@@ -48,7 +43,7 @@ fun ResetPinScreen(onBackClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(15.dp, 5.dp),
+            .padding(15.dp, 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally)
     {
 
@@ -65,8 +60,8 @@ fun ResetPinScreen(onBackClick: () -> Unit) {
             painter = painterResource(id = R.drawable.tujijenge),
             contentDescription = "Tujijenge brand",
             modifier = Modifier
-                .padding(0.dp, 68.dp)
-                .size(width = 350.dp, height = 200.dp)
+                .padding(0.dp, 57.dp)
+                .size(width = 250.dp, height = 200.dp)
                 .fillMaxHeight(0.3F),
             contentScale = ContentScale.FillWidth
         )
