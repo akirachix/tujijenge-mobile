@@ -146,7 +146,7 @@ fun ResetPinScreen(onBackClick: () -> Unit) {
             ),
             enabled = newPin.length == 4 && confirmPin.length == 4
         ) {
-            Text(text ="Sign up",
+            Text(text ="Reset",
                 fontFamily = nunito,
                 fontWeight = FontWeight.Bold,
                 fontSize = 25.sp)
