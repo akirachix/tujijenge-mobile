@@ -100,10 +100,8 @@ fun HomeScreen() {
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
-    val email by remember {
-        mutableStateOf("")
-    }
-    val password by remember {
+
+    var phoneNumber by remember {
         mutableStateOf("")
     }
     val focusRequesters = remember { List(4) { FocusRequester() } }
@@ -159,8 +157,10 @@ fun LoginScreen(navController: NavHostController) {
             Spacer(modifier = Modifier.height(10.dp))
 
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = phoneNumber,
+                onValueChange = { newValue ->
+                    phoneNumber = newValue
+                },
                 placeholder = {
                     Text(
                         text = "Enter Phone Number",
