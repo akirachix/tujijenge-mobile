@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -29,6 +27,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+
+//
+//Text inside button: height: 60, width 220, button text, bold and 25
+//Heading one 32
+//description 16.sp (edited)
+//logo 350 width and 200 heign
+//padding top 73
 @Composable
 fun ResetPinScreen(onBackClick: () -> Unit) {
     var newPin by remember { mutableStateOf("") }
@@ -47,29 +52,28 @@ fun ResetPinScreen(onBackClick: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally)
     {
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start) {
-            IconButton(onClick = onBackClick) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    tint = Color(0xFF084236)
-                )
-            }
+        TextButton(
+            onClick = { },
+
+            modifier = Modifier.align(Alignment.End)
+        ) {
+            Text(text = "Skip",
+                color = Color(0xFF084236))
         }
+
         Image(
             painter = painterResource(id = R.drawable.tujijenge),
             contentDescription = "Tujijenge brand",
             modifier = Modifier
-                .size(250.dp)
+                .padding(0.dp, 68.dp)
+                .size(width = 350.dp, height = 200.dp)
                 .fillMaxHeight(0.3F),
             contentScale = ContentScale.FillWidth
         )
         Text(
             text = "Reset PIN",
             fontFamily = nunito,
+            fontSize = 32.sp,
             color = Color(0xFF084236),
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.headlineMedium
@@ -137,8 +141,8 @@ fun ResetPinScreen(onBackClick: () -> Unit) {
                 }
             },
             modifier = Modifier
-                .size(width = 200.dp, height = 55.dp),
-            shape = RoundedCornerShape(10.dp),
+                .size(width = 220.dp, height = 60.dp),
+            shape = RoundedCornerShape(15.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF084236),
                 contentColor = Color(0xFFC2CA83),
