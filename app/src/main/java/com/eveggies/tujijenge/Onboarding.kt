@@ -1,11 +1,13 @@
 package com.eveggies.tujijenge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -64,10 +66,10 @@ fun FirstOnboarding(navController: NavHostController) {
                 fontFamily = TujijengeFont,
                 modifier = Modifier.widthIn(max=270.dp)
             )
-            Spacer(modifier = Modifier.height(120.dp))
+            Spacer(modifier = Modifier.height(150.dp))
             // Dot Indicator
-            DotIndicator(currentPage = 0, totalDots = 4)
-            Spacer(modifier = Modifier.height(24.dp))
+            DotIndicator(currentPage = 1, totalDots = 4)
+            Spacer(modifier = Modifier.height(32.dp))
             // Next Button
             Button(
                 onClick = {
@@ -96,32 +98,46 @@ fun FirstOnboarding(navController: NavHostController) {
 }
 @Composable
 fun DotIndicator(currentPage: Int, totalDots: Int) {
+    val dotSize = 16.dp
+    val spacing = 6.dp
+    val mergedDotWidth = (dotSize * currentPage) + (spacing * (currentPage - 1)).coerceAtLeast(0.dp)
     Row(
-        modifier = Modifier
-            .padding(16.dp)
-            .wrapContentWidth(Alignment.CenterHorizontally),
-        horizontalArrangement = Arrangement.Center
-
-    )
-
-    {
-        for (i in 0 until totalDots) {
+        modifier = Modifier.wrapContentWidth(),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // Merged green ellipse for completed steps
+        if (currentPage > 0) {
             Box(
                 modifier = Modifier
-                    .size(18.dp)
-                    .padding(2.dp)
-                    .background(
-                        color = if (i == currentPage) TujijengeGreen else TujijengeLightGreen,
-                        shape = RoundedCornerShape(50)
-                    )
-
+                    .width(mergedDotWidth)
+                    .height(dotSize)
+                    .clip(RoundedCornerShape(50)) // Ellipse shape
+                    .background(TujijengeGreen)
+            )
+            Spacer(modifier = Modifier.width(spacing))
+        }
+        // Unmerged remaining dots (light green)
+        for (i in currentPage until totalDots) {
+            Box(
+                modifier = Modifier
+                    .size(dotSize)
+                    .clip(CircleShape)
+                    .background(TujijengeLightGreen)
             )
             if (i < totalDots - 1) {
-                Spacer(modifier = Modifier.width(4.dp) )
+                Spacer(modifier = Modifier.width(spacing))
             }
         }
     }
 }
+
+
+
+
+
+
+
 
 @Composable
 fun SecondOnboarding(navController: NavHostController) {
@@ -165,11 +181,11 @@ fun SecondOnboarding(navController: NavHostController) {
                 color = TujijengeGreen,
                 textAlign = TextAlign.Center,
                 fontFamily = TujijengeFont,
-                modifier = Modifier.widthIn(max=270.dp)
+                modifier = Modifier.widthIn(max=272.dp)
             )
-            Spacer(modifier = Modifier.height(90.dp))
+            Spacer(modifier = Modifier.height(128.dp))
             // Dot Indicator
-            DotIndicator(currentPage = 1, totalDots = 3)
+            DotIndicator(currentPage = 2, totalDots = 4)
             Spacer(modifier = Modifier.height(32.dp))
             // Next Button
             Button(
@@ -241,10 +257,10 @@ fun ThirdOnboarding(navController: NavHostController) {
                 fontFamily = TujijengeFont,
                 modifier = Modifier.widthIn(max=270.dp)
             )
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(76.dp))
             // Dot Indicator
-            DotIndicator(currentPage = 2, totalDots = 2)
-            Spacer(modifier = Modifier.height(24.dp))
+            DotIndicator(currentPage = 3, totalDots = 4)
+            Spacer(modifier = Modifier.height(32.dp))
             // Next Button
             Button(
                 onClick = {
@@ -310,10 +326,10 @@ fun FourthOnboarding(navController: NavHostController) {
                 fontFamily = TujijengeFont,
                 modifier = Modifier.widthIn(max=270.dp)
             )
-            Spacer(modifier = Modifier.height(190.dp))
+            Spacer(modifier = Modifier.height(218.dp))
             // Dot Indicator
-            DotIndicator(currentPage = 1, totalDots = 1)
-            Spacer(modifier = Modifier.height(24.dp))
+            DotIndicator(currentPage = 4, totalDots = 4)
+            Spacer(modifier = Modifier.height(32.dp))
             // Next Button
             Button(
                 onClick = {
