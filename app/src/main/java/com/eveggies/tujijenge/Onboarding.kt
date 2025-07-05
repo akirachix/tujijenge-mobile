@@ -32,14 +32,14 @@ fun FirstOnboarding(navController: NavHostController) {
     ) {
         TextButton(
             onClick = {navController.navigate("Onboarding2") },
-            modifier = Modifier.align(Alignment.End).padding(top = 8.dp)
+            modifier = Modifier.align(Alignment.End).padding(top = 24.dp)
         ) {
             Text(text = "Skip", color = TujijengeGreen, fontWeight = FontWeight.Normal)
         }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 24.dp),
+                .padding(top = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
@@ -141,7 +141,7 @@ fun DotIndicator(currentPage: Int, totalDots: Int) {
 
 @Composable
 fun SecondOnboarding(navController: NavHostController) {
-    var currentPage by remember { mutableStateOf(0) } // Track current page
+    var currentPage by remember { mutableStateOf(0) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -149,14 +149,14 @@ fun SecondOnboarding(navController: NavHostController) {
     ) {
         TextButton(
             onClick = { navController.navigate("Onboarding3")},
-            modifier = Modifier.align(Alignment.End).padding(top = 8.dp)
+            modifier = Modifier.align(Alignment.End).padding(top = 24.dp)
         ) {
             Text(text = "Skip", color = TujijengeGreen, fontWeight = FontWeight.Normal)
         }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 24.dp),
+                .padding(top = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
@@ -223,14 +223,14 @@ fun ThirdOnboarding(navController: NavHostController) {
     ) {
         TextButton(
             onClick = { navController.navigate("Onboarding4")  },
-            modifier = Modifier.align(Alignment.End).padding(top = 8.dp)
+            modifier = Modifier.align(Alignment.End).padding(top = 24.dp)
         ) {
             Text(text = "Skip", color = TujijengeGreen, fontWeight = FontWeight.Normal)
         }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 32.dp),
+                .padding(top = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
@@ -299,7 +299,7 @@ fun FourthOnboarding(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 32.dp),
+                .padding(top = 48.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
@@ -326,7 +326,7 @@ fun FourthOnboarding(navController: NavHostController) {
                 fontFamily = TujijengeFont,
                 modifier = Modifier.widthIn(max=270.dp)
             )
-            Spacer(modifier = Modifier.height(218.dp))
+            Spacer(modifier = Modifier.height(204.dp))
             // Dot Indicator
             DotIndicator(currentPage = 4, totalDots = 4)
             Spacer(modifier = Modifier.height(32.dp))

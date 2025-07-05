@@ -35,7 +35,7 @@ fun SignupScreen(navController: NavHostController) {
         // Back Arrow
         IconButton(
             onClick = { navController.navigate("Onboarding1") },
-            modifier = Modifier.padding(top = 8.dp)
+            modifier = Modifier.padding(top = 24.dp)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.outline_arrow_back_24),
@@ -46,8 +46,7 @@ fun SignupScreen(navController: NavHostController) {
         // Logo & Title
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp),
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
