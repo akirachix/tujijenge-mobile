@@ -34,7 +34,7 @@ fun SignupScreen(navController: NavHostController) {
     ) {
         // Back Arrow
         IconButton(
-            onClick = { navController.popBackStack() },
+            onClick = { navController.navigate("Onboarding1") },
             modifier = Modifier.padding(top = 8.dp)
         ) {
             Icon(
@@ -59,7 +59,7 @@ fun SignupScreen(navController: NavHostController) {
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "Welcome to Tujijenge",
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.titleMedium,
                 color = TujijengeGreen,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
@@ -80,6 +80,7 @@ fun SignupScreen(navController: NavHostController) {
                 Text(
                     text = label,
                     style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.SemiBold,
                     color = TujijengeGreen,
                     fontFamily = TujijengeFont
                 )
@@ -92,7 +93,8 @@ fun SignupScreen(navController: NavHostController) {
                         .background(TujijengeLightGreen, RoundedCornerShape(8.dp)),
                     placeholder = {
                         Text("Enter ${label.removeSuffix(":").lowercase()}",
-                            fontFamily = TujijengeFont
+                            fontFamily = TujijengeFont,
+                            fontWeight = FontWeight.Thin
                         )
 
                     },
@@ -110,7 +112,7 @@ fun SignupScreen(navController: NavHostController) {
             }
             Spacer(modifier = Modifier.height(16.dp))
         }
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(30.dp))
         // Continue Button
         Button(
             onClick = {
@@ -119,8 +121,8 @@ fun SignupScreen(navController: NavHostController) {
                 }
             },
             modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .height(55.dp).align(Alignment.CenterHorizontally),
+                .fillMaxWidth(0.6f)
+                .height(60.dp).align(Alignment.CenterHorizontally),
             shape = RoundedCornerShape(16.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = TujijengeGreen,
@@ -129,7 +131,8 @@ fun SignupScreen(navController: NavHostController) {
         ) {
             Text(
                 text = "Continue",
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.Bold,
                 fontFamily = TujijengeFont
             )
         }
@@ -163,22 +166,3 @@ fun SignupScreen(navController: NavHostController) {
 fun SignupScreenPreview() {
     SignupScreen(navController = rememberNavController())
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

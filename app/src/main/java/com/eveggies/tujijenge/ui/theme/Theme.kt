@@ -4,7 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-// :sun_with_face: Light Theme Colors
+
 private val LightColorScheme = lightColorScheme(
     primary = TujijengeGreen,
     onPrimary = TujijengeWhite,
@@ -16,7 +16,7 @@ private val LightColorScheme = lightColorScheme(
     onSurface = TujijengeGreen,
     outline = TujijengeGrey
 )
-// :crescent_moon: Optional: Dark Theme (customize if needed)
+
 private val DarkColorScheme = darkColorScheme(
     primary = TujijengeLightGreen,
     onPrimary = TujijengeGreen,

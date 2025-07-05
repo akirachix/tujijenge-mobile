@@ -22,11 +22,11 @@ val TujijengeTypography = Typography(
     ),
     titleLarge = TextStyle(
         fontFamily = TujijengeFont,
-        fontSize = 40.sp
+        fontSize = 32.sp
     ),
     titleMedium = TextStyle(
         fontFamily = TujijengeFont,
-     fontSize = 32.sp
+     fontSize = 28.sp
      ),
     titleSmall = TextStyle(
         fontFamily = TujijengeFont,
@@ -36,5 +36,6 @@ val TujijengeTypography = Typography(
         fontFamily = TujijengeFont,
         fontSize = 12.sp
     )
+
 
 )
