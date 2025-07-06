@@ -89,7 +89,7 @@ fun ResetPinScreen() {
                 horizontalArrangement = Arrangement.Start
             ) {
                 Text(
-                    text = "Enter new PIN:",
+                    text = "New PIN:",
                     fontSize = 16.sp,
                     color = Color(0xFF084236),
                     modifier = Modifier.padding(start = 70.dp)
@@ -110,7 +110,7 @@ fun ResetPinScreen() {
             ) {
                 Text(
 
-                    text = "Confirm new PIN:",
+                    text = "Confirm PIN:",
                     fontSize = 16.sp,
                     color = Color(0xFF084236),
                     modifier = Modifier.padding(start = 70.dp)
