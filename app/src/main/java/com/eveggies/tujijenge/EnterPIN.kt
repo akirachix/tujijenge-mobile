@@ -12,11 +12,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -25,105 +27,117 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.widget.Toast
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
+import com.eveggies.tujijenge.ui.theme.TujijengeGreen
+import com.eveggies.tujijenge.ui.theme.TujijengeLightGreen
+import com.eveggies.tujijenge.ui.theme.TujijengeWhite
 
+val nunito = FontFamily(Font(R.font.nunito))
 
 @Composable
-fun ResetPinScreen(onBackClick: () -> Unit) {
-
-
-    val TujijengeGreen = Color(0xFF084236)
-    val TujijengeLightGreen = Color(0xFFC0C882)
-    val TujijengeWhite = Color(0xFFFFFFFF)
-    val TujijengeBlack = Color(0xFF000000)
-    val TujijengeGrey = Color(0xFF888888)
-    var newPin by remember { mutableStateOf("") }
-    var confirmPin by remember { mutableStateOf("") }
+fun EnterPinScreen(
+    onBackClick: () -> Unit,
+    onPinSuccess: (String) -> Unit = {}
+) {
+    var newPin by rememberSaveable { mutableStateOf("") }
+    var confirmPin by rememberSaveable { mutableStateOf("") }
     var showError by remember { mutableStateOf(false) }
     val newPinFocusRequesters = remember { List(4) { FocusRequester() } }
     val confirmPinFocusRequesters = remember { List(4) { FocusRequester() } }
-    val nunito = FontFamily(
-        Font(R.font.nunito)
-    )
+    val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(15.dp, 5.dp),
-        horizontalAlignment = Alignment.CenterHorizontally)
-    {
-
+            .padding(15.dp, 15.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start) {
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start
+        ) {
             IconButton(onClick = onBackClick) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = Color(0xFF084236)
+                    tint = TujijengeGreen
                 )
             }
         }
-        Image(
-            painter = painterResource(id = R.drawable.logo),
-            contentDescription = "Tujijenge brand",
-            modifier = Modifier
-                .size(250.dp)
-                .fillMaxHeight(0.3F),
-            contentScale = ContentScale.FillWidth
-        )
+        Spacer(modifier = Modifier.height(2.dp))
+        Column {
+            Image(
+                painter = painterResource(id = R.drawable.logo),
+                contentDescription = "Tujijenge brand",
+                modifier = Modifier.size(300.dp)
+            )
+        }
+        Spacer(modifier = Modifier.height(1.dp))
         Text(
             text = "Enter PIN",
+            fontSize = 32.sp,
             fontFamily = nunito,
-            color = Color(0xFF084236),
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.headlineMedium
+            color = TujijengeGreen,
+            fontWeight = FontWeight.Bold
         )
-        Spacer(modifier = Modifier.height(48.dp))
+        Spacer(modifier = Modifier.height(50.dp))
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 73.dp),
             horizontalArrangement = Arrangement.Start
         ) {
             Text(
                 text = "PIN:",
-                fontSize = 16.sp,
-                color = Color(0xFF084236),
-                modifier = Modifier.padding(start = 85.dp)
+                fontSize = 20.sp,
+                color = TujijengeGreen,
+                modifier = Modifier.padding(start = 5.dp)
+                    .padding(bottom = 5.dp)
             )
         }
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(5.dp))
         PinInputField(
             pin = newPin,
             onPinChange = { newPin = it },
-            focusRequesters = newPinFocusRequesters
+            focusRequesters = newPinFocusRequesters,
+            focusManager = focusManager,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(30.dp))
+
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 73.dp),
             horizontalArrangement = Arrangement.Start
         ) {
             Text(
-
                 text = "Confirm PIN:",
-                fontSize = 16.sp,
-                color = Color(0xFF084236),
-                modifier = Modifier.padding(start = 85.dp)
+                fontSize = 20.sp,
+                color = TujijengeGreen,
+                modifier = Modifier.padding(start = 5.dp)
+                    .padding(bottom = 4.dp)
             )
         }
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(5.dp))
         PinInputField(
             pin = confirmPin,
             onPinChange = { confirmPin = it },
-            focusRequesters = confirmPinFocusRequesters
+            focusRequesters = confirmPinFocusRequesters,
+            focusManager = focusManager,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
-        if (showError && newPin.isNotEmpty() && confirmPin.isNotEmpty() && newPin != confirmPin) {
+        if (showError && newPin != confirmPin) {
             Text(
                 fontFamily = nunito,
                 text = "PINs do not match!",
@@ -132,32 +146,38 @@ fun ResetPinScreen(onBackClick: () -> Unit) {
             )
         }
 
-        Spacer(modifier = Modifier.height(52.dp))
+        Spacer(modifier = Modifier.height(70.dp))
 
         Button(
             onClick = {
-                if (newPin == confirmPin && newPin.length == 4) {
-
+                if (newPin == confirmPin && newPin.length == 4 && newPin.all { it.isDigit() }) {
                     showError = false
-
+                    onPinSuccess(newPin)
                 } else {
                     showError = true
+                    Toast.makeText(context, "PINs do not match or are invalid!", Toast.LENGTH_SHORT).show()
+                    newPinFocusRequesters[0].requestFocus()
                 }
             },
             modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .height(55.dp).align(Alignment.CenterHorizontally),
+                .fillMaxWidth(0.6f)
+                .height(60.dp)
+                .align(Alignment.CenterHorizontally),
             shape = RoundedCornerShape(16.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = TujijengeGreen,
-                contentColor = TujijengeWhite
+                contentColor = TujijengeWhite,
+                disabledContainerColor = TujijengeLightGreen,
+                disabledContentColor = TujijengeGreen
             ),
             enabled = newPin.length == 4 && confirmPin.length == 4
         ) {
-            Text(text ="Sign up",
+            Text(
+                text = "Sign up",
                 fontFamily = nunito,
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp)
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }
@@ -166,58 +186,89 @@ fun ResetPinScreen(onBackClick: () -> Unit) {
 fun PinInputField(
     pin: String,
     onPinChange: (String) -> Unit,
-    focusRequesters: List<FocusRequester>
-)
-{
-    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        repeat(4) { index ->
-            var isFocused by remember { mutableStateOf(false) }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .size(42.dp)
-                    .border(
-                        width = 1.dp,
-                        color = if (isFocused) Color(0xFF084236) else Color(0xFFB8B8B8)
-                    )
-            )
-            {
-                BasicTextField(
-                    value = if (index < pin.length) pin[index].toString() else "",
-                    onValueChange = { value ->
-                        if (value.length <= 1 && value.all { it.isDigit() }) {
-                            val updatedPin = StringBuilder(pin).apply {
-                                if (value.isNotEmpty()) {
-                                    if (index < pin.length) setCharAt(index, value[0])
-                                    else append(value)
-                                } else if (pin.isNotEmpty() && index < pin.length) {
-                                    deleteCharAt(index)
-                                }
-                            }.toString().take(4)
-                            onPinChange(updatedPin)
-
-                            if (value.isNotEmpty() && index < 3) {
-                                focusRequesters[index + 1].requestFocus()
-                            } else if (value.isEmpty() && index > 0) {
-                                focusRequesters[index - 1].requestFocus()
-                            }
-                        }
-                    },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    visualTransformation = PasswordVisualTransformation(),
-                    singleLine = true,
+    focusRequesters: List<FocusRequester>,
+    focusManager: FocusManager,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.Center
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            repeat(4) { index ->
+                var isFocused by remember { mutableStateOf(false) }
+                Box(
+                    contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .width(48.dp)
-                        .height(56.dp)
-                        .focusRequester(focusRequesters[index])
-                        .onFocusChanged { focusState -> isFocused = focusState.isFocused },
-                    textStyle = TextStyle(
-                        textAlign = TextAlign.Center,
-                        fontSize = 22.sp,
-                        color = Color(0xFF194D41)
-                    ),
-                    decorationBox = { innerTextField -> innerTextField() }
-                )
+                        .size(48.dp)
+                        .border(
+                            width = if (isFocused) 2.dp else 1.dp,
+                            shape = RoundedCornerShape(10.dp),
+                            color = if (isFocused) Color(0xFF084236) else Color(0xFFC0C882)
+                        )
+                ) {
+                    BasicTextField(
+                        value = if (index < pin.length) pin.getOrNull(index)?.toString() ?: "" else "",
+                        onValueChange = { value ->
+                            if (value.length <= 1 && value.all { it.isDigit() }) {
+                                val pinChars = pin.toCharArray().toMutableList()
+                                if (value.isNotEmpty()) {
+                                    if (index < pinChars.size) {
+                                        pinChars[index] = value[0]
+                                    } else if (pinChars.size < 4) {
+                                        pinChars.add(value[0])
+                                    }
+                                    onPinChange(pinChars.joinToString("").take(4))
+                                    if (index < 3) {
+                                        focusRequesters[index + 1].requestFocus()
+                                    } else {
+                                        focusManager.clearFocus()
+                                    }
+                                } else {
+                                    if (pinChars.isNotEmpty() && index < pinChars.size) {
+                                        pinChars.removeAt(index)
+                                        onPinChange(pinChars.joinToString(""))
+                                        if (index > 0) {
+                                            focusRequesters[index - 1].requestFocus()
+                                        }
+                                    } else if (pinChars.isNotEmpty() && index == pinChars.size) {
+                                        pinChars.removeAt(pinChars.size - 1)
+                                        onPinChange(pinChars.joinToString(""))
+                                        if (index > 0) {
+                                            focusRequesters[index - 1].requestFocus()
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+                        visualTransformation = PasswordVisualTransformation(),
+                        singleLine = true,
+                        modifier = Modifier
+                            .size(48.dp)
+                            .align(Alignment.Center)
+                            .focusRequester(focusRequesters[index])
+                            .onFocusChanged { focusState ->
+                                isFocused = focusState.isFocused
+                            },
+                        textStyle = TextStyle(
+                            textAlign = TextAlign.Center,
+                            fontSize = 22.sp,
+                            lineHeight = 22.sp, // Ensures cursor is vertically centered
+                            fontFamily = nunito,
+                            color = Color(0xFF194D41)
+                        ),
+                        decorationBox = { innerTextField ->
+                            Box(
+                                Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ) { innerTextField() }
+                        }
+                    )
+                }
             }
         }
     }
@@ -226,5 +277,5 @@ fun PinInputField(
 @Preview(showBackground = true)
 @Composable
 fun EnterPinScreenPreview() {
-    ResetPinScreen(onBackClick = {})
+    EnterPinScreen(onBackClick = {})
 }
