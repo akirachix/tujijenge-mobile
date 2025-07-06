@@ -26,11 +26,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
+import androidx.navigation.compose.rememberNavController
 
 
 @Composable
-fun ResetPinScreen(onBackClick: () -> Unit) {
+fun ResetPinScreen() {
     var newPin by remember { mutableStateOf("") }
     var confirmPin by remember { mutableStateOf("") }
     var showError by remember { mutableStateOf(false) }
@@ -43,117 +43,128 @@ fun ResetPinScreen(onBackClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(15.dp, 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally)
-    {
-
-        TextButton(
-            onClick = { },
-
-            modifier = Modifier.align(Alignment.End)
+            .padding(horizontal = 24.dp)
+    ) {
+        IconButton(
+            onClick = {},
+            modifier = Modifier.padding(top = 24.dp)
         ) {
-            Text(text = "Skip",
-                color = Color(0xFF084236))
+            Icon(
+                painter = painterResource(id = R.drawable.outline_arrow_back_24),
+                contentDescription = "Back arrow",
+                tint = Color(0xFF084236)
+            )
         }
-
-        Image(
-            painter = painterResource(id = R.drawable.tujijenge),
-            contentDescription = "Tujijenge brand",
+        Column(
             modifier = Modifier
-                .padding(0.dp, 57.dp)
-                .size(width = 250.dp, height = 200.dp)
-                .fillMaxHeight(0.3F),
-            contentScale = ContentScale.FillWidth
+                .fillMaxSize()
+                .padding(15.dp, 24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         )
-        Text(
-            text = "Reset PIN",
-            fontFamily = nunito,
-            fontSize = 32.sp,
-            color = Color(0xFF084236),
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.headlineMedium
-        )
-        Spacer(modifier = Modifier.height(48.dp))
+        {
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start
-        ) {
-            Text(
-                text = "Enter new PIN:",
-                fontSize = 16.sp,
-                color = Color(0xFF084236),
-                modifier = Modifier.padding(start = 85.dp)
+
+            Image(
+                painter = painterResource(id = R.drawable.tujijenge),
+                contentDescription = "Tujijenge brand",
+                modifier = Modifier
+                    .padding(0.dp, 50.dp)
+                    .size(width = 250.dp, height = 200.dp)
+                    .fillMaxHeight(0.3F),
+                contentScale = ContentScale.FillWidth
             )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        PinInputField(
-            pin = newPin,
-            onPinChange = { newPin = it },
-            focusRequesters = newPinFocusRequesters
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start
-        ) {
             Text(
-
-                text = "Confirm new PIN:",
-                fontSize = 16.sp,
-                color = Color(0xFF084236),
-                modifier = Modifier.padding(start = 85.dp)
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        PinInputField(
-            pin = confirmPin,
-            onPinChange = { confirmPin = it },
-            focusRequesters = confirmPinFocusRequesters
-        )
-
-        if (showError && newPin.isNotEmpty() && confirmPin.isNotEmpty() && newPin != confirmPin) {
-            Text(
+                text = "Reset PIN",
                 fontFamily = nunito,
-                text = "PINs do not match!",
-                color = MaterialTheme.colorScheme.error,
-                modifier = Modifier.padding(top = 8.dp)
-            )
-        }
-
-        Spacer(modifier = Modifier.height(52.dp))
-
-        Button(
-            onClick = {
-                if (newPin == confirmPin && newPin.length == 4) {
-
-                    showError = false
-
-                } else {
-                    showError = true
-                }
-            },
-            modifier = Modifier
-                .size(width = 220.dp, height = 60.dp),
-            shape = RoundedCornerShape(15.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF084236),
-                contentColor = Color(0xFFC2CA83),
-                disabledContainerColor = Color(0xFFC2CA83),
-                disabledContentColor =  Color(0xFF084236)
-            ),
-            enabled = newPin.length == 4 && confirmPin.length == 4
-        ) {
-            Text(text ="Reset",
-                fontFamily = nunito,
+                fontSize = 32.sp,
+                color = Color(0xFF084236),
                 fontWeight = FontWeight.Bold,
-                fontSize = 25.sp)
+                style = MaterialTheme.typography.headlineMedium
+            )
+            Spacer(modifier = Modifier.height(48.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Text(
+                    text = "Enter new PIN:",
+                    fontSize = 16.sp,
+                    color = Color(0xFF084236),
+                    modifier = Modifier.padding(start = 85.dp)
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            PinInputField(
+                pin = newPin,
+                onPinChange = { newPin = it },
+                focusRequesters = newPinFocusRequesters
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Text(
+
+                    text = "Confirm new PIN:",
+                    fontSize = 16.sp,
+                    color = Color(0xFF084236),
+                    modifier = Modifier.padding(start = 85.dp)
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            PinInputField(
+                pin = confirmPin,
+                onPinChange = { confirmPin = it },
+                focusRequesters = confirmPinFocusRequesters
+            )
+
+            if (showError && newPin.isNotEmpty() && confirmPin.isNotEmpty() && newPin != confirmPin) {
+                Text(
+                    fontFamily = nunito,
+                    text = "PINs do not match!",
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(80.dp))
+
+            Button(
+                onClick = {
+                    if (newPin == confirmPin && newPin.length == 4) {
+
+                        showError = false
+
+                    } else {
+                        showError = true
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth(0.6f)
+                    .height(60.dp),
+                shape = RoundedCornerShape(15.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF084236),
+                    contentColor = Color.White,
+                    disabledContainerColor = Color(0xFFC2CA83),
+                    disabledContentColor = Color(0xFF084236)
+                ),
+                enabled = newPin.length == 4 && confirmPin.length == 4
+            ) {
+                Text(
+                    text = "Reset",
+                    fontFamily = nunito,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 25.sp
+                )
+            }
         }
     }
 }
-
 @Composable
 fun PinInputField(
     pin: String,
@@ -218,5 +229,5 @@ fun PinInputField(
 @Preview(showBackground = true)
 @Composable
 fun EnterPinScreenPreview() {
-    ResetPinScreen(onBackClick = {})
+    ResetPinScreen()
 }
