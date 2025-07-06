@@ -15,6 +15,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -91,7 +92,7 @@ fun ResetPinScreen() {
                     text = "Enter new PIN:",
                     fontSize = 16.sp,
                     color = Color(0xFF084236),
-                    modifier = Modifier.padding(start = 85.dp)
+                    modifier = Modifier.padding(start = 70.dp)
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
@@ -112,7 +113,7 @@ fun ResetPinScreen() {
                     text = "Confirm new PIN:",
                     fontSize = 16.sp,
                     color = Color(0xFF084236),
-                    modifier = Modifier.padding(start = 85.dp)
+                    modifier = Modifier.padding(start = 70.dp)
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
@@ -181,7 +182,8 @@ fun PinInputField(
                     .size(42.dp)
                     .border(
                         width = 1.dp,
-                        color = if (isFocused) Color(0xFF084236) else Color(0xFFB8B8B8)
+                        shape = RoundedCornerShape(10.dp),
+                        color = if (isFocused) Color(0xFF084236) else Color(0xFFC2CA83)
                     )
             )
             {
@@ -212,12 +214,13 @@ fun PinInputField(
                     modifier = Modifier
                         .width(48.dp)
                         .height(56.dp)
+                        .padding(top = 8.dp)
                         .focusRequester(focusRequesters[index])
                         .onFocusChanged { focusState -> isFocused = focusState.isFocused },
                     textStyle = TextStyle(
                         textAlign = TextAlign.Center,
                         fontSize = 22.sp,
-                        color = Color(0xFF194D41)
+                        color = Color(0xFF084236)
                     ),
                     decorationBox = { innerTextField -> innerTextField() }
                 )
