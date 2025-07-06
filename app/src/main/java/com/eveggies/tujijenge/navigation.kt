@@ -11,14 +11,14 @@ fun AppNavigation() {
     NavHost(navController = navController, startDestination = "enter_pin") {
         composable("enter_pin") {
             EnterPinScreen(
-                onBackClick = { /* Handle if needed */ },
+                onBackClick = { },
                 onPinSuccess = { navController.navigate("disclaimer") }
             )
         }
         composable("disclaimer") {
             DisclaimerScreen(
                 onContinue = { inStall ->
-                    // Always go to community screen, passing the Boolean value as a string
+
                     navController.navigate("community?showLocationDialog=${inStall}")
                 },
                 onBackClick = { navController.popBackStack() }
