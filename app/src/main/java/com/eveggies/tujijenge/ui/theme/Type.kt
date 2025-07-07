@@ -15,7 +15,6 @@ val TujijengeFont = FontFamily(
     Font(R.font.nunito, FontWeight.Bold)
 )
 
-
 val TujijengeTypography = Typography(
     bodyLarge = TextStyle(
         fontFamily = TujijengeFont,
@@ -27,8 +26,9 @@ val TujijengeTypography = Typography(
     ),
     titleMedium = TextStyle(
         fontFamily = TujijengeFont,
-        fontSize = 28.sp
-    ),
+
+     fontSize = 28.sp
+     ),
     titleSmall = TextStyle(
         fontFamily = TujijengeFont,
         fontSize = 24.sp
