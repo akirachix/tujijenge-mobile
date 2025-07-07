@@ -4,6 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import com.eveggies.tujijenge.R
@@ -45,9 +46,27 @@ fun TujijengeTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
-
     MaterialTheme(
         colorScheme = colorScheme,
+
+
+        typography = TujijengeTypography,
+
         content = content
     )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
