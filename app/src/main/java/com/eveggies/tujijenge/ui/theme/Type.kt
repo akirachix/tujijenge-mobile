@@ -1,34 +1,42 @@
 package com.eveggies.tujijenge.ui.theme
 
+
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.Font
 
-// Set of Material typography styles to start with
-val Typography = Typography(
+import com.eveggies.tujijenge.R
+val TujijengeFont = FontFamily(
+    Font(R.font.nunito, FontWeight.Normal),
+    Font(R.font.nunito, FontWeight.Medium),
+    Font(R.font.nunito, FontWeight.Bold)
+)
+
+val TujijengeTypography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
+        fontFamily = TujijengeFont,
+        fontSize = 16.sp
+    ),
     titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+        fontFamily = TujijengeFont,
+        fontSize = 32.sp
+    ),
+    titleMedium = TextStyle(
+        fontFamily = TujijengeFont,
+
+     fontSize = 28.sp
+     ),
+    titleSmall = TextStyle(
+        fontFamily = TujijengeFont,
+        fontSize = 24.sp
     ),
     labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
+        fontFamily = TujijengeFont,
+        fontSize = 12.sp
     )
-    */
+
+
 )
