@@ -3,5 +3,7 @@
 
     <style name="Theme.Tujijenge" parent="android:Theme.Material.Light.NoActionBar" />
 
+    <style name="Theme.EnterPIN" parent="android:Theme.Material.Light.NoActionBar" />
+
     <style name="Theme.ResetPin" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
