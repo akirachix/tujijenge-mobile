@@ -5,6 +5,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import com.eveggies.tujijenge.R
+
 private val LightColorScheme = lightColorScheme(
     primary = TujijengeGreen,
     onPrimary = TujijengeWhite,
@@ -44,7 +48,10 @@ fun TujijengeTheme(
     }
     MaterialTheme(
         colorScheme = colorScheme,
+
+
         typography = TujijengeTypography,
+
         content = content
     )
 }

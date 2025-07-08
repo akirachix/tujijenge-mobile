@@ -231,6 +231,6 @@ fun PinInputField(
 
 @Preview(showBackground = true)
 @Composable
-fun EnterPinScreenPreview() {
+fun EnterPinScreenPreview1() {
     ResetPinScreen()
 }
