@@ -1,15 +1,29 @@
 package com.eveggies.tujijenge
-
 import androidx.compose.runtime.*
 import androidx.navigation.*
 import androidx.navigation.compose.*
 
 @Composable
 fun AppNavigation() {
-    val navController = rememberNavController()
+    
+        }
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.eveggies.signup.SignupScreen
 
-    NavHost(navController = navController, startDestination = "enter_pin") {
-        composable("enter_pin") {
+@Composable
+fun AppNavigation(navController: NavHostController, startDestination = "enter_pin") {
+    val navController = rememberNavController()
+     
+    NavHost(navController, startDestination = "Onboarding1") {
+        composable("Onboarding1") { FirstOnboarding(navController) }
+        composable("Onboarding2") { SecondOnboarding(navController) }
+        composable("Onboarding3") { ThirdOnboarding(navController) }
+        composable ("Onboarding4"){FourthOnboarding(navController)}
+        composable("Signup") { SignupScreen(navController) } 
+         composable("enter_pin") {
             EnterPinScreen(
                 onBackClick = { },
                 onPinSuccess = { navController.navigate("disclaimer") }
@@ -53,6 +67,6 @@ fun AppNavigation() {
                     onDeny = { showDialog = false }
                 )
             }
-        }
+        
     }
-}
+   
