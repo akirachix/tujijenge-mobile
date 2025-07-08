@@ -1,45 +1,42 @@
+
+
 package com.eveggies.tujijenge
+
+
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.*
 import androidx.navigation.compose.*
-
-@Composable
-fun AppNavigation() {
-    
-        }
-import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import com.eveggies.signup.SignupScreen
 
+
+
 @Composable
-fun AppNavigation(navController: NavHostController, startDestination = "enter_pin") {
-    val navController = rememberNavController()
-     
-    NavHost(navController, startDestination = "Onboarding1") {
+fun AppNavigation(navController: NavHostController, startDestination: String = "Onboarding1") {
+
+
+    NavHost(navController, startDestination = startDestination) {
         composable("Onboarding1") { FirstOnboarding(navController) }
         composable("Onboarding2") { SecondOnboarding(navController) }
         composable("Onboarding3") { ThirdOnboarding(navController) }
-        composable ("Onboarding4"){FourthOnboarding(navController)}
-        composable("Signup") { SignupScreen(navController) } 
-         composable("enter_pin") {
+        composable("Onboarding4") { FourthOnboarding(navController) }
+        composable("Signup") { SignupScreen(navController) }
+        composable("enter_pin") {
             EnterPinScreen(
-                onBackClick = { },
+                onBackClick = { navController.popBackStack() }, // Added popBackStack for consistency
                 onPinSuccess = { navController.navigate("disclaimer") }
             )
         }
         composable("disclaimer") {
             DisclaimerScreen(
-                onContinue = { inStall ->
-
-                    navController.navigate("community?showLocationDialog=${inStall}")
+                onContinue = { install ->
+                    navController.navigate("community?showLocationDialog=${install}")
                 },
                 onBackClick = { navController.popBackStack() }
             )
         }
         composable(
-            "community?showLocationDialog={showLocationDialog}",
+            route = "community?showLocationDialog={showLocationDialog}",
             arguments = listOf(
                 navArgument("showLocationDialog") {
                     type = NavType.BoolType
@@ -47,8 +44,11 @@ fun AppNavigation(navController: NavHostController, startDestination = "enter_pi
                 }
             )
         ) { backStackEntry ->
-            val showLocationDialog = backStackEntry.arguments?.getBoolean("showLocationDialog") ?: false
-            var showDialog by remember { mutableStateOf(showLocationDialog) }
+
+            val showLocationDialogArgument = backStackEntry.arguments?.getBoolean("showLocationDialog") ?: false
+
+
+            var showActualDialog by rememberSaveable { mutableStateOf(showLocationDialogArgument) }
 
             val communities = listOf(
                 Community("1", "Community A", 10, "500m away", "Karen Korongo Road"),
@@ -61,12 +61,13 @@ fun AppNavigation(navController: NavHostController, startDestination = "enter_pi
                 onBackClick = { navController.popBackStack() }
             )
 
-            if (showDialog) {
+            if (showActualDialog) {
                 AllowLocationScreen(
-                    onAllow = { showDialog = false },
-                    onDeny = { showDialog = false }
+                    onAllow = { showActualDialog = false },
+                    onDeny = { showActualDialog = false }
                 )
             }
-        
+        }
+
     }
-   
+}
