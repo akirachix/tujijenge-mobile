@@ -7,7 +7,7 @@ val TujijengeWhite = Color(0xFFFFFFFF)
 val TujijengeBlack = Color(0xFF000000)
 
 val TujijengeGrey = Color(0xFF888888)
-val TujijengeGrey = Color(0xFF888888)
+
 
 
 
