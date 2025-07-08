@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun CommunityCard(community: Community, modifier: Modifier = Modifier) {
+
     val TujijengeGreen = Color(0xFF084236)
     val TujijengeLightGreen = Color(0xFFC0C882)
     val nunito = FontFamily(Font(R.font.nunito))

@@ -1,5 +1,4 @@
 package com.eveggies.tujijenge
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.snapping.SnapPosition
@@ -17,8 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eveggies.tujijenge.ui.theme.TujijengeLightGreen
-
-
 val TujijengeGreen = Color(0xFF084236)
 val TujijengeWhite = Color(0xFFFFFFFF)
 val TujijengeLightGreen = Color(0xFFC0C882)
