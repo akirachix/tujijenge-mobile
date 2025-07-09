@@ -3,6 +3,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -10,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,16 +19,17 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.eveggies.tujijenge.R
-import com.eveggies.tujijenge.ui.theme.TujijengeFont
-import com.eveggies.tujijenge.ui.theme.TujijengeGreen
-import com.eveggies.tujijenge.ui.theme.TujijengeLightGreen
-import com.eveggies.tujijenge.ui.theme.TujijengeWhite
-
+import com.eveggies.tujijenge.ui.theme.*
 @Composable
 fun SignupScreen(navController: NavHostController) {
     var firstName by remember { mutableStateOf(TextFieldValue("")) }
     var lastName by remember { mutableStateOf(TextFieldValue("")) }
-    var phoneNumber by remember { mutableStateOf(TextFieldValue("")) }
+    var phoneNumber by remember { mutableStateOf("") }
+    val isPhoneValid = isValidKenyanPhone(phoneNumber)
+    val allFieldsFilled = firstName.text.isNotBlank() &&
+            lastName.text.isNotBlank() &&
+            phoneNumber.isNotBlank() &&
+            isPhoneValid
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,8 +48,7 @@ fun SignupScreen(navController: NavHostController) {
         }
         // Logo & Title
         Column(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
@@ -69,13 +71,16 @@ fun SignupScreen(navController: NavHostController) {
         // Input Fields
         listOf(
             "First Name:" to firstName to { it: TextFieldValue -> firstName = it },
-            "Last Name:" to lastName to { it: TextFieldValue -> lastName = it },
-            "Phone number:" to phoneNumber to { it: TextFieldValue -> phoneNumber = it }
+            "Last Name:" to lastName to { it: TextFieldValue -> lastName = it }
         ).forEach { (labelPair, valuePair) ->
             val label = labelPair.first
             val value = labelPair.second
             val onChange = valuePair
-            Column(modifier = Modifier.fillMaxWidth(0.8f).align(Alignment.CenterHorizontally)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .align(Alignment.CenterHorizontally)
+            ) {
                 Text(
                     text = label,
                     style = MaterialTheme.typography.bodyLarge,
@@ -95,7 +100,6 @@ fun SignupScreen(navController: NavHostController) {
                             fontFamily = TujijengeFont,
                             fontWeight = FontWeight.Thin
                         )
-
                     },
                     shape = RoundedCornerShape(8.dp),
                     colors = OutlinedTextFieldDefaults.colors(
@@ -111,11 +115,57 @@ fun SignupScreen(navController: NavHostController) {
             }
             Spacer(modifier = Modifier.height(16.dp))
         }
+        // Phone Number Input
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .align(Alignment.CenterHorizontally)
+        ) {
+            Text(
+                text = "Phone number:",
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.SemiBold,
+                color = TujijengeGreen,
+                fontFamily = TujijengeFont
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            OutlinedTextField(
+                value = phoneNumber,
+                onValueChange = {
+                    phoneNumber = it.filter { char -> char.isDigit() }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(TujijengeLightGreen, RoundedCornerShape(8.dp)),
+                placeholder = {
+                    Text("Enter phone number",
+                        fontFamily = TujijengeFont,
+                        fontWeight = FontWeight.Thin
+                    )
+                },
+                shape = RoundedCornerShape(8.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = TujijengeWhite,
+                    unfocusedContainerColor = TujijengeWhite,
+                    focusedBorderColor = TujijengeLightGreen,
+                    unfocusedBorderColor = TujijengeLightGreen,
+                    focusedTextColor = TujijengeGreen,
+                    unfocusedTextColor = TujijengeGreen
+                ),
+                textStyle = MaterialTheme.typography.bodyLarge,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            )
+            if (phoneNumber.isNotBlank() && !isPhoneValid) {
+                Text(
+                    text = "Enter a valid Kenyan phone number",
+                    color = Color.Red,
+                    style = MaterialTheme.typography.bodySmall,
+                    fontFamily = TujijengeFont
+                )
+            }
+        }
         Spacer(modifier = Modifier.height(30.dp))
         // Continue Button
-        val allFieldsFilled = firstName.text.isNotBlank() &&
-                lastName.text.isNotBlank() &&
-                phoneNumber.text.isNotBlank()
         Button(
             onClick = {
                 navController.navigate("enter_pin")
@@ -123,7 +173,8 @@ fun SignupScreen(navController: NavHostController) {
             enabled = allFieldsFilled,
             modifier = Modifier
                 .fillMaxWidth(0.6f)
-                .height(60.dp).align(Alignment.CenterHorizontally),
+                .height(60.dp)
+                .align(Alignment.CenterHorizontally),
             shape = RoundedCornerShape(16.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = if (allFieldsFilled) TujijengeGreen else TujijengeLightGreen,
@@ -164,8 +215,26 @@ fun SignupScreen(navController: NavHostController) {
         }
     }
 }
+// :package: Kenyan Phone Validator
+fun isValidKenyanPhone(phone: String): Boolean {
+    val pattern = Regex("^(?:254|0)?7\\d{8}$")
+    return pattern.matches(phone)
+}
 @Preview(showBackground = true)
 @Composable
 fun SignupScreenPreview() {
     SignupScreen(navController = rememberNavController())
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
