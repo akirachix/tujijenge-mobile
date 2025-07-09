@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -53,9 +54,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.eveggies.tujijenge.ui.theme.TujijengeGreen
+import com.eveggies.tujijenge.ui.theme.TujijengeLightGreen
 import com.eveggies.tujijenge.ui.theme.TujijengeTheme
-
-
+import com.eveggies.tujijenge.ui.theme.TujijengeWhite
 
 
 sealed class Screen(val route: String) {
@@ -119,7 +121,8 @@ fun LoginScreen(navController: NavHostController) {
     val nunito = FontFamily(
         Font(R.font.nunito)
     )
-
+    val allFieldsFilled = phoneNumber.isNotBlank() &&
+            newPin.isNotBlank()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -165,9 +168,7 @@ fun LoginScreen(navController: NavHostController) {
 
             OutlinedTextField(
                 value = phoneNumber,
-                onValueChange = { newValue ->
-                    phoneNumber = newValue
-                },
+                onValueChange = { phoneNumber = it.filter { char -> char.isDigit() } },
                 placeholder = {
                     Text(
                         text = "Enter Phone Number",
@@ -183,14 +184,27 @@ fun LoginScreen(navController: NavHostController) {
 //                    .defaultMinSize(minHeight = 50.dp)
                     .height(50.dp)
                     .padding(horizontal = 40.dp),
-
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 shape = RoundedCornerShape(10.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color(0xFF084236), unfocusedBorderColor = Color(0xFFC2CA83)
 
+
                 ),
             )
-
+            fun isValidKenyanPhone(phone: String): Boolean {
+                val pattern = Regex("^(?:254|0)?7\\d{8}$")
+                return pattern.matches(phone)
+            }
+            val isPhoneValid = isValidKenyanPhone(phoneNumber)
+            if (phoneNumber.isNotBlank() && !isPhoneValid) {
+                Text(
+                    text = "Enter a valid Kenyan phone number",
+                    color = Color.Red,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 40.dp, top = 4.dp)
+                )
+            }
             Spacer(modifier = Modifier.height(30.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -207,7 +221,9 @@ fun LoginScreen(navController: NavHostController) {
 
             }
         }
+
         Spacer(modifier = Modifier.padding(5.dp))
+
         LoginPinInputField(
             pin = newPin,
             onPinChange = {
@@ -215,19 +231,37 @@ fun LoginScreen(navController: NavHostController) {
             },
             focusRequesters = focusRequesters
         )
-        Spacer(modifier = Modifier.weight(0.2f))
 
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = "Forgot Password?",
+                modifier = Modifier
+                    .padding(start = 185.dp, top = 8.dp)
+                    .clickable {
+                   navController.navigate("reset_pin")
+                    },
+                color = TujijengeGreen,
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
+        Spacer(modifier = Modifier.weight(0.2f))
         Button(
             onClick = {
                 navController.navigate(Screen.Home.route)
             },
+            enabled = allFieldsFilled,
             modifier = Modifier
                 .fillMaxWidth(0.6f)
-                .height(55.dp).align(Alignment.CenterHorizontally),
+                .height(60.dp)
+                .align(Alignment.CenterHorizontally),
             shape = RoundedCornerShape(16.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = TujijengeGreen,
-                contentColor = TujijengeWhite
+                containerColor = if (allFieldsFilled) TujijengeGreen else TujijengeLightGreen,
+                contentColor = TujijengeWhite,
+                disabledContainerColor = TujijengeLightGreen,
+                disabledContentColor = TujijengeGreen
+
             )
         )
         {
@@ -319,7 +353,7 @@ fun LoginPinInputField(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color(0xFF084236), unfocusedBorderColor = Color(0xFFC2CA83)
                 ),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier
                     .width(50.dp)
@@ -328,5 +362,6 @@ fun LoginPinInputField(
             )
         }
     }
+
 }
 

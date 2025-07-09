@@ -23,6 +23,7 @@ fun AppNavigation(navController: NavHostController, startDestination: String = "
         composable("Onboarding4") { FourthOnboarding(navController) }
         composable("Signup") { SignupScreen(navController) }
         composable("Login") { LoginScreen(navController) }
+        composable("reset_pin") { ResetPinScreen(navController) }
         composable("enter_pin") {
             EnterPinScreen(
                 onBackClick = { navController.popBackStack() }, // Added popBackStack for consistency
