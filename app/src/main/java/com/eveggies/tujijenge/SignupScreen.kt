@@ -113,19 +113,23 @@ fun SignupScreen(navController: NavHostController) {
         }
         Spacer(modifier = Modifier.height(30.dp))
         // Continue Button
+        val allFieldsFilled = firstName.text.isNotBlank() &&
+                lastName.text.isNotBlank() &&
+                phoneNumber.text.isNotBlank()
         Button(
             onClick = {
-                if (firstName.text.isNotBlank() && lastName.text.isNotBlank() && phoneNumber.text.isNotBlank()) {
-                    navController.navigate("enterPinScreen")
-                }
+                navController.navigate("enter_pin")
             },
+            enabled = allFieldsFilled,
             modifier = Modifier
                 .fillMaxWidth(0.6f)
                 .height(60.dp).align(Alignment.CenterHorizontally),
             shape = RoundedCornerShape(16.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = TujijengeGreen,
-                contentColor = TujijengeWhite
+                containerColor = if (allFieldsFilled) TujijengeGreen else TujijengeLightGreen,
+                contentColor = TujijengeWhite,
+                disabledContainerColor = TujijengeLightGreen,
+                disabledContentColor = TujijengeGreen
             )
         ) {
             Text(
@@ -154,7 +158,7 @@ fun SignupScreen(navController: NavHostController) {
                 fontFamily = TujijengeFont,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.clickable {
-                    navController.navigate("login")
+                    navController.navigate("Login")
                 }
             )
         }

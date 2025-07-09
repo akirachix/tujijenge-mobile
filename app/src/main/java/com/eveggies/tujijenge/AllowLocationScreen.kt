@@ -15,10 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.eveggies.tujijenge.ui.theme.TujijengeLightGreen
-val TujijengeGreen = Color(0xFF084236)
-val TujijengeWhite = Color(0xFFFFFFFF)
-val TujijengeLightGreen = Color(0xFFC0C882)
+
 
 @Composable
 fun AllowLocationScreen(
@@ -47,7 +44,7 @@ fun AllowLocationScreen(
 
             Text(
                 text = "Allow Location",
-                color = TujijengeLightGreen,
+                color = Color(0xFFC0C882),
                 fontSize = 32.sp,
                 fontFamily = nunito,
                 fontWeight = FontWeight.Bold
@@ -56,7 +53,7 @@ fun AllowLocationScreen(
             Text(
                 modifier = Modifier.width(300.dp),
                 text = "We need your permission to access your location",
-                color = TujijengeLightGreen,
+                color = Color(0xFFC0C882),
                 fontSize = 18.sp,
                 fontFamily = nunito,
                 textAlign = TextAlign.Center
@@ -70,7 +67,7 @@ fun AllowLocationScreen(
                     .fillMaxWidth()
                     .height(55.dp),
                 shape = RoundedCornerShape(16.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = com.eveggies.tujijenge.TujijengeLightGreen)
+                colors = ButtonDefaults.buttonColors(containerColor =  Color(0xFFC0C882),)
             )
 
             {

@@ -251,7 +251,7 @@ fun LoginScreen(navController: NavHostController) {
                 text = buildAnnotatedString {
                     append("Don't have an account? ")
                     withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                        append("Sign up")
+                        append("Signup")
                     }
                 },
                 fontSize = 12.sp,
