@@ -54,6 +54,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.eveggies.tujijenge.ui.theme.TujijengeFont
 import com.eveggies.tujijenge.ui.theme.TujijengeGreen
 import com.eveggies.tujijenge.ui.theme.TujijengeLightGreen
 import com.eveggies.tujijenge.ui.theme.TujijengeTheme
@@ -232,9 +233,10 @@ fun LoginScreen(navController: NavHostController) {
             focusRequesters = focusRequesters
         )
 
-        Row(modifier = Modifier.fillMaxWidth()) {
+        Row(modifier = Modifier.fillMaxWidth().padding(horizontal=50.dp,vertical=5.dp)
+        ) {
             Text(
-                text = "Forgot Password?",
+                text = "Forgot Pin?",
                 modifier = Modifier
                     .padding(start = 185.dp, top = 8.dp)
                     .clickable {
@@ -279,22 +281,24 @@ fun LoginScreen(navController: NavHostController) {
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start
-        ) {
+            horizontalArrangement = Arrangement.Center
+        ){
             Text(
-                text = buildAnnotatedString {
-                    append("Don't have an account? ")
-                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                        append("Signup")
-                    }
-                },
-                fontSize = 12.sp,
-                color = Color(0xFF084236),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(start = 90.dp),
+                text = "Don't have an account? ",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onBackground,
+                fontFamily = TujijengeFont
             )
-
-
+            Text(
+                text = "Signup",
+                style = MaterialTheme.typography.bodySmall,
+                color = TujijengeGreen,
+                fontFamily = TujijengeFont,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.clickable {
+                    navController.navigate("Signup")
+                }
+            )
         }
         Spacer(modifier = Modifier.weight(0.2f))
 
@@ -353,7 +357,7 @@ fun LoginPinInputField(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color(0xFF084236), unfocusedBorderColor = Color(0xFFC2CA83)
                 ),
-
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier
                     .width(50.dp)

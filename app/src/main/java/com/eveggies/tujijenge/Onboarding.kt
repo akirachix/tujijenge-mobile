@@ -31,7 +31,7 @@ fun FirstOnboarding(navController: NavHostController) {
             .padding(horizontal = 24.dp)
     ) {
         TextButton(
-            onClick = {navController.navigate("Onboarding2") },
+            onClick = {navController.navigate("Signup") },
             modifier = Modifier.align(Alignment.End).padding(top = 24.dp)
         ) {
             Text(text = "Skip", color = TujijengeGreen, fontWeight = FontWeight.Normal)
@@ -148,7 +148,7 @@ fun SecondOnboarding(navController: NavHostController) {
             .padding(horizontal = 24.dp)
     ) {
         TextButton(
-            onClick = { navController.navigate("Onboarding3")},
+            onClick = { navController.navigate("Signup")},
             modifier = Modifier.align(Alignment.End).padding(top = 24.dp)
         ) {
             Text(text = "Skip", color = TujijengeGreen, fontWeight = FontWeight.Normal)
@@ -183,7 +183,7 @@ fun SecondOnboarding(navController: NavHostController) {
                 fontFamily = TujijengeFont,
                 modifier = Modifier.widthIn(max=272.dp)
             )
-            Spacer(modifier = Modifier.height(128.dp))
+            Spacer(modifier = Modifier.height(105.dp))
             // Dot Indicator
             DotIndicator(currentPage = 2, totalDots = 4)
             Spacer(modifier = Modifier.height(32.dp))
@@ -222,7 +222,7 @@ fun ThirdOnboarding(navController: NavHostController) {
             .padding(horizontal = 24.dp)
     ) {
         TextButton(
-            onClick = { navController.navigate("Onboarding4")  },
+            onClick = { navController.navigate("Signup")  },
             modifier = Modifier.align(Alignment.End).padding(top = 24.dp)
         ) {
             Text(text = "Skip", color = TujijengeGreen, fontWeight = FontWeight.Normal)
@@ -326,7 +326,7 @@ fun FourthOnboarding(navController: NavHostController) {
                 fontFamily = TujijengeFont,
                 modifier = Modifier.widthIn(max=270.dp)
             )
-            Spacer(modifier = Modifier.height(204.dp))
+            Spacer(modifier = Modifier.height(180.dp))
             // Dot Indicator
             DotIndicator(currentPage = 4, totalDots = 4)
             Spacer(modifier = Modifier.height(32.dp))
