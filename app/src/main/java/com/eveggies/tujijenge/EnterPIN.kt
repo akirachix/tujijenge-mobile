@@ -244,7 +244,7 @@ fun PinInputField(
                                 }
                             }
                         },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         visualTransformation = PasswordVisualTransformation(),
                         singleLine = true,
                         modifier = Modifier
