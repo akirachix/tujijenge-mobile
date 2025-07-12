@@ -27,11 +27,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 
 @Composable
-fun ResetPinScreen() {
+fun ResetPinScreen(navController: NavHostController) {
     var newPin by remember { mutableStateOf("") }
     var confirmPin by remember { mutableStateOf("") }
     var showError by remember { mutableStateOf(false) }
@@ -47,7 +49,7 @@ fun ResetPinScreen() {
             .padding(horizontal = 24.dp)
     ) {
         IconButton(
-            onClick = {},
+            onClick = {navController.popBackStack()},
             modifier = Modifier.padding(top = 24.dp)
         ) {
             Icon(
@@ -232,5 +234,5 @@ fun PinInputField(
 @Preview(showBackground = true)
 @Composable
 fun EnterPinScreenPreview1() {
-    ResetPinScreen()
+    ResetPinScreen(navController = rememberNavController())
 }

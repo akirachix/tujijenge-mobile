@@ -12,15 +12,18 @@ import com.eveggies.signup.SignupScreen
 
 
 @Composable
-fun AppNavigation(navController: NavHostController, startDestination: String = "Onboarding1") {
+fun AppNavigation(navController: NavHostController, startDestination: String = "splash") {
 
 
     NavHost(navController, startDestination = startDestination) {
+        composable("splash"){SplashScreen(navController)}
         composable("Onboarding1") { FirstOnboarding(navController) }
         composable("Onboarding2") { SecondOnboarding(navController) }
         composable("Onboarding3") { ThirdOnboarding(navController) }
         composable("Onboarding4") { FourthOnboarding(navController) }
         composable("Signup") { SignupScreen(navController) }
+        composable("Login") { LoginScreen(navController) }
+        composable("reset_pin") { ResetPinScreen(navController) }
         composable("enter_pin") {
             EnterPinScreen(
                 onBackClick = { navController.popBackStack() }, // Added popBackStack for consistency
